@@ -21,8 +21,8 @@ Before we begin, make sure you have:
 ### Step 1: Get the Code
 First, clone this repository to your computer:
 ```bash
-git clone https://github.com/your-username/alevel-history-assistant.git
-cd alevel-history-assistant
+git clone https://github.com/Yashkalwar/AI_MSC_PROJECT.git
+cd AI_MSC_PROJECT
 ```
 
 ### Step 2: Set Up Your Environment
@@ -64,7 +64,7 @@ python main.py
    # In the project directory
    python create_sample_data.py
    ```
-   This will set up the initial database with sample data
+   This will set up the initial database with sample data and you can edit it accordingly
 
 2. **Start the Backend API** (in a terminal):
    ```bash
