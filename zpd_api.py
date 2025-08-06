@@ -28,12 +28,6 @@ def update_scores(
     score_update: ScoreUpdate,
     db: Session = Depends(get_db)
 ):
-    """
-    Update a user's ZPD score based on recent performance scores.
-    
-    - **user_id**: ID of the user
-    - **scores**: List of recent scores (0.0 to 1.0, where 1.0 is perfect)
-    """
     calculator = ZPDCalculator(db)
     try:
         zpd_score, message = calculator.update_user_zpd(user_id, score_update.scores)
@@ -46,11 +40,6 @@ def get_zpd(
     user_id: int,
     db: Session = Depends(get_db)
 ):
-    """
-    Get a user's current ZPD score.
-    
-    - **user_id**: ID of the user
-    """
     calculator = ZPDCalculator(db)
     try:
         zpd_score = calculator.get_user_zpd(user_id)

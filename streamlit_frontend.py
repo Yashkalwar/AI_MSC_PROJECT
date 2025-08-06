@@ -244,7 +244,7 @@ def quiz():
                 st.rerun()
                 
             except Exception as e:
-                error_msg = f"❌ Error generating question: {str(e)}"
+                error_msg = f" Error generating question: {str(e)}"
                 if "retriever" not in st.session_state:
                     error_msg += "\n\nRetriever not initialized. Please try selecting a chapter again."
                 st.error(error_msg)

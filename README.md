@@ -62,7 +62,7 @@ python main.py
    ```bash
    python create_sample_data.py
    ```
-   This creates the initial database with sample content that you can modify as needed.
+   This creates the initial database with sample content that you can modify as needed. You can check the student ID from here which you will need to login in the web interface or the command line interface.
 
 2. **Start the Backend Server**:
    ```bash

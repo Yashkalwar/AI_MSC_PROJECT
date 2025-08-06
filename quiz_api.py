@@ -1,3 +1,5 @@
+"""FastAPI backend for the ZPD-based adaptive history quiz system. Handles user sessions, question generation, and answer evaluation with adaptive difficulty."""
+
 from typing import Optional, Dict
 
 from fastapi import FastAPI, HTTPException

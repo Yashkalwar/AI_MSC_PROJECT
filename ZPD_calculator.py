@@ -1,43 +1,20 @@
 """
-ZPD (Zone of Proximal Development) Calculator Module
+ZPD Calculator - Adjusts question difficulty based on student performance
 
-This module implements an adaptive learning algorithm that adjusts question difficulty
-based on student performance using a smoothed exponential moving average approach.
-The ZPD score ranges from 1.0 (easiest) to 10.0 (most difficult).
-
-Algorithm Overview:
-1. Tracks student performance using an exponential moving average (EMA)
-2. Adjusts ZPD based on performance trends and answer quality
-3. Implements non-linear scaling to prevent large jumps in difficulty
-4. Includes streak bonuses for consecutive correct answers
-
-References:
-- Vygotsky's Zone of Proximal Development theory
-- EMA (Exponential Moving Average) for smoothing learning metrics
-- Adaptive learning algorithms for educational technology
-
-Dependencies:
-- numpy: For numerical operations and array handling
-- typing: For type hints
+This code manages how hard or easy questions should be for each student.
+It watches how well students do and tweaks the difficulty up or down.
+Uses numpy for number crunching and type hints for better code clarity.
 """
 from typing import List, Tuple, Optional
 import numpy as np
 
 class ZPDCalculator:
-    def __init__(self, initial_zpd: float = 5.0) -> None:
+    def __init__(self, initial_zpd: float = 5.0):
         """
-        Initialize the ZPD calculator with an initial ZPD score.
+        Set up the calculator with a starting difficulty level.
         
-        The ZPD score represents the optimal difficulty level for learning, where:
-        - 1.0: Very easy (minimal challenge)
-        - 5.0: Moderate difficulty (comfortable challenge)
-        - 10.0: Very difficult (maximum challenge)
-        
-        Args:
-            initial_zpd: Initial ZPD score between 1.0 and 10.0 (default: 5.0)
-            
-        Raises:
-            ValueError: If initial_zpd is outside valid range [1.0, 10.0]
+        The ZPD score goes from 1.0 (super easy) to 10.0 (really hard).
+        We start at 5.0 by default - right in the middle.
         """
         if not 1.0 <= initial_zpd <= 10.0:
             raise ValueError("Initial ZPD must be between 1.0 and 10.0")
@@ -58,30 +35,18 @@ class ZPDCalculator:
     def get_user_zpd(self) -> float:
         """
         Get the current ZPD (Zone of Proximal Development) score.
-        
-        Returns:
-            float: Current ZPD score between 1.0 (easiest) and 10.0 (most difficult)
         """
         return self.current_zpd
 
-    def calculate_performance_score(self, scores: List[float]) -> float:
+    def calculate_performance_score(self, scores: List[float]):
         """
-        Calculate a weighted performance score from recent answer history.
+        Figure out how well the student is doing based on their recent answers.
         
-        Recent answers are weighted more heavily than older ones to better
-        reflect current performance levels. The score is bounded between 0.0 and 1.0.
+        We care more about what they got right recently than a long time ago.
+        Returns a number between 0.0 (all wrong) and 1.0 (all correct).
         
-        Args:
-            scores: List of performance scores where each score is between 0.0 (incorrect)
-                   and 1.0 (fully correct)
-                   
-        Returns:
-            float: Weighted performance score between 0.0 and 1.0
-                  
-        Example:
-            >>> calc = ZPDCalculator()
-            >>> calc.calculate_performance_score([0.8, 0.9, 1.0])
-            0.916...  # More weight given to recent higher scores
+        For example, if they got [0.8, 0.9, 1.0] on their last three answers,
+        we'll give more weight to that perfect 1.0 at the end.
         """
         if not scores:
             return 0.5  # Neutral score if no history
@@ -96,20 +61,13 @@ class ZPDCalculator:
 
     def update_user_zpd(self, performance_score: float) -> float:
         """
-        Update the ZPD score based on the latest performance score.
+        Update the difficulty level based on how the student did.
         
-        This method implements an adaptive algorithm that:
-        1. Updates the smoothed performance using EMA
-        2. Tracks performance trends
-        3. Applies non-linear scaling to adjustments
-        4. Includes streak bonuses for consecutive successes
-        5. Uses EMA for smooth ZPD transitions
+        Takes their latest score (0.0 to 1.0) and adjusts the difficulty.
+        If they're doing well, we make it harder. If they're struggling,
+        we make it a bit easier.
         
-        Args:
-            performance_score: Current performance score (0.0 to 1.0)
-            
-        Returns:
-            New ZPD score (rounded to 1 decimal place)
+        Returns the new difficulty level (ZPD score).
         """
         old_zpd = self.current_zpd
         
@@ -155,13 +113,8 @@ class ZPDCalculator:
         The better they do, the more we increase the difficulty. If they're struggling,
         we'll make it a bit easier for them. We also give bonus points for getting
         multiple questions right in a row!
-        
-        Args:
-            performance_score: How well they did (0.0 = totally wrong, 1.0 = perfect)
-            
-        Returns:
-            How much to adjust the ZPD by (positive = harder, negative = easier)
         """
+        
         # If they did really well (90%+ correct)
         if performance_score >= 0.9:
             # Keep track of how many they've gotten right in a row
@@ -207,7 +160,7 @@ class ZPDCalculator:
     
     def _log_zpd_update(self, old_zpd: float, performance_score: float, 
                        adjustment: float) -> None:
-        """Log ZPD update information for debugging and monitoring."""
+        """Log ZPD update information if debugging and monitoring needed."""
         print(f"[ZPD Update] "
               f"Old ZPD: {old_zpd:.1f} → New ZPD: {self.current_zpd:.1f}, "
               f"Performance: {performance_score:.2f} "

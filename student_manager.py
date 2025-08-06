@@ -33,20 +33,12 @@ class StudentSession:
         self._last_activity = time.time()
     
     def is_expired(self) -> bool:
-        """Check if the session has expired due to inactivity.
-        
-        Returns:
-            bool: True if session has expired, False otherwise
-        """
+        """Check if the session has expired due to inactivity."""
         inactive_duration = time.time() - self._last_activity
         return inactive_duration > (self.SESSION_TIMEOUT_MINUTES * 60)
     
     def get_remaining_session_time(self) -> timedelta:
-        """Get the remaining time until session expires.
-        
-        Returns:
-            timedelta: Remaining session time
-        """
+        """Get the remaining time until session expires."""
         inactive_duration = time.time() - self._last_activity
         remaining = (self.SESSION_TIMEOUT_MINUTES * 60) - inactive_duration
         return timedelta(seconds=max(0, remaining))
@@ -57,9 +49,7 @@ class StudentSession:
         
         Args:
             performance_score: Score between 0.0 and 1.0 representing performance
-            
-        Returns:
-            Tuple of (old_zpd, new_zpd)
+
         """
         if self.is_expired():
             raise SessionExpiredError("Session has expired. Please log in again.")
@@ -106,9 +96,6 @@ class StudentManager:
         
         Args:
             student_id: ID of the student
-            
-        Returns:
-            StudentSession if valid session exists, None otherwise
         """
         session = self.active_sessions.get(student_id)
         if session and not session.is_expired():
@@ -127,9 +114,6 @@ class StudentManager:
             student_id: ID of the student
             student_name: Name of the student
             initial_zpd: Initial ZPD score for the session
-            
-        Returns:
-            New StudentSession instance
         """
         # End any existing session for this user
         if student_id in self.active_sessions:
@@ -157,12 +141,6 @@ class StudentManager:
             student_session: The student's session
             is_correct: Whether the answer was correct
             is_partial: Whether the answer was partially correct
-            
-        Returns:
-            Tuple of (old_zpd, new_zpd)
-            
-        Raises:
-            SessionExpiredError: If the session has expired
         """
         # This will raise SessionExpiredError if session is invalid
         if student_session.is_expired():
@@ -176,9 +154,6 @@ class StudentManager:
     def get_or_create_student(self) -> 'StudentSession':
         """
         Get an existing student or create a new one, and create a session.
-        
-        Returns:
-            StudentSession: The student's session data
         """
         student_id = input("Enter your student ID: ").strip()
         

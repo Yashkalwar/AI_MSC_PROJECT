@@ -24,5 +24,5 @@ python-multipart>=0.0.5,<0.1.0
 pydantic>=1.8.2,<2.0.0
 streamlit>=1.0.0
 fuzzywuzzy>=0.18.0
-python-Levenshtein>=0.12.2  # For better performance with fuzzywuzzy
-pydantic>=1.10.0,<2.0.0  # Ensure pydantic version is compatible with FastAPI
+python-Levenshtein>=0.12.2 
+pydantic>=1.10.0,<2.0.0

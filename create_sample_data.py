@@ -2,7 +2,7 @@ from student_db import StudentDB
 import time
 
 def add_sample_students():
-    """Add sample students with their current ZPD scores."""
+    """Add sample students with their current ZPD scores. You can modify this according to your needs, if you want to test different ZPDs"""
     max_attempts = 5
     attempt = 0
     
@@ -55,7 +55,7 @@ def add_sample_students():
                 print(f"Retrying in {wait_time} seconds...")
                 time.sleep(wait_time)
             else:
-                print("\n❌ Failed to update student data after multiple attempts.")
+                print("\nError: Failed to update student data after multiple attempts.")
                 print("Please make sure no other instances of the application are running.")
                 print("If the problem persists, you may need to delete the student.db file and try again.")
                 return

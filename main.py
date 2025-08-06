@@ -188,9 +188,7 @@ def load_retriever_and_reranker(embeddings_model, query_instruction: str, select
         embeddings_model: The embeddings model used for the vector store
         query_instruction: Instruction for query processing
         selected_chapter_id: Optional chapter ID to filter results
-        
-    Returns:
-        ContextualCompressionRetriever: Configured retriever with re-ranking
+    
     """
     try:
         print("Loading FAISS vector store...")
@@ -210,10 +208,10 @@ def load_retriever_and_reranker(embeddings_model, query_instruction: str, select
         
         # Apply chapter filter if specified
         if selected_chapter_id and selected_chapter_id != "all":
-            print(f"🔍 Filtering retrieval for chapter: {selected_chapter_id}")
+            print(f"Filtering retrieval for chapter: {selected_chapter_id}")
             search_kwargs["filter"] = {"chapter_id": selected_chapter_id}
         else:
-            print("🌐 No chapter filter applied (retrieving from all chapters).")
+            print("No chapter filter applied (retrieving from all chapters).")
 
         # Create base retriever from FAISS index
         base_retriever = vectorstore.as_retriever(search_kwargs=search_kwargs)
@@ -279,8 +277,6 @@ def generate_question_from_chapter_content(retriever, llm, zpd_score: float, sel
         previous_questions: Set of previously asked questions to avoid repetition
         zpd_score: The user's Zone of Proximal Development score (1.0-10.0)
         
-    Returns:
-        tuple: (question, answer, difficulty_level)
     """
     if previous_questions is None:
         previous_questions = set()
@@ -323,7 +319,7 @@ def generate_question_from_chapter_content(retriever, llm, zpd_score: float, sel
     
     while attempt < max_attempts:
         attempt += 1
-        print(f"\n🧠 Generating a {difficulty}-level question from {selected_chapter_title} (Attempt {attempt}/{max_attempts})...")
+        print(f"\nGenerating a {difficulty}-level question from {selected_chapter_title} (Attempt {attempt}/{max_attempts})...")
         
         try:
             # Select a random aspect to focus on
@@ -438,8 +434,6 @@ def generate_hint(question: str, expected_answer: str, zpd_score: float, llm) ->
         zpd_score: The student's ZPD score (1.0-10.0)
         llm: The language model to use
         
-    Returns:
-        A hint string tailored to the student's ZPD level
     """
     # Determine hint style and detail level based on ZPD score
     if zpd_score < 4.0:  # Beginner
@@ -514,9 +508,6 @@ def analyze_student_answer(question: str, student_answer: str, expected_answer: 
         expected_answer: The expected answer
         llm: The language model to use
         zpd_score: The student's ZPD score (1.0-10.0)
-        
-    Returns:
-        Dictionary with analysis results including feedback and hint if needed
     """
     try:
         # First, check if the answer is relevant
@@ -595,9 +586,6 @@ def get_feedback_on_answer(user_answer: str, expected_answer: str, question: str
         question: The question that was asked
         llm: The language model to use
         zpd_score: The student's ZPD score (1.0-10.0)
-        
-    Returns:
-        A tuple of (feedback_message, is_correct, analysis)
     """
     try:
         # Check if expected answer is present
@@ -610,7 +598,7 @@ def get_feedback_on_answer(user_answer: str, expected_answer: str, question: str
         # Check if answer is too short
         if len(user_answer.split()) < 3:
             return (
-                "🤔 Your answer seems quite brief. Could you elaborate more? Try to explain your thinking in more detail.",
+                "Your answer seems quite brief. Could you elaborate more? Try to explain your thinking in more detail.",
                 False,
                 {'hint': generate_hint(question, expected_answer, zpd_score, llm)}
             )
@@ -623,13 +611,13 @@ def get_feedback_on_answer(user_answer: str, expected_answer: str, question: str
         
         # Add hint if available and answer isn't correct
         # if analysis.get('hint') and not analysis['is_correct']:
-        #     feedback_parts.append(f"\n💡 Hint: {analysis['hint']}")
+        #     feedback_parts.append(f"\nHint: {analysis['hint']}")
         
         # Add closing note
         if analysis['is_correct']:
-            feedback_parts.append("\n👍 Great job! You've demonstrated good understanding of the topic.")
+            feedback_parts.append("\nGreat job! You've demonstrated good understanding of the topic.")
         else:
-            feedback_parts.append("\n💭 Take a moment to review the material and try again. You can do it!")
+            feedback_parts.append("\nTake a moment to review the material and try again. You can do it!")
         
         return (
             "\n".join(feedback_parts),
@@ -645,30 +633,6 @@ def get_feedback_on_answer(user_answer: str, expected_answer: str, question: str
             {'hint': "Consider providing more specific details in your answer."}
         )
 
-# def ask_question(qa_chain, question):
-#     """
-#     This function is largely deprecated for the interactive quiz mode,
-#     as the main loop directly handles question generation and feedback.
-#     It remains as a utility for potential direct QA queries.
-#     """
-#     print("\n🔍 Processing your question with RAG chain (utility function, not used in main quiz loop)...")
-#     try:
-#         result = qa_chain.invoke({"query": question})
-#         print(f"\n{'='*80}\n📝 RAG System's Answer (for reference/debugging):\n{result['result']}\n{'='*80}\n")
-#         if result.get("source_documents"):
-#             print("📚 Sources (for reference/debugging):")
-#             for doc in result["source_documents"]:
-#                 page_num, chapter_id, chapter_title, relevance_score = (
-#                     doc.metadata.get('page', 'N/A'), doc.metadata.get('chapter_id', 'N/A'),
-#                     doc.metadata.get('chapter_title', 'N/A'), doc.metadata.get('relevance_score', 'N/A')
-#                 )
-#                 score_str = f"{relevance_score:.4f}" if isinstance(relevance_score, float) else relevance_score
-#                 print(f"  - Source: {doc.metadata.get('source', 'N/A')}, Page: {page_num}, "
-#                       f"Chapter: {chapter_title} ({chapter_id}), Relevance Score: {score_str}")
-#         else:
-#             print("ℹ️ No sources were returned for this answer.")
-#     except Exception as e:
-#         print(f"An error occurred while asking the question: {e}")
 
 # --- Main Application Logic ---
 def main():
@@ -740,7 +704,7 @@ def main():
     retriever = load_retriever_and_reranker(embeddings_model, embeddings_model.query_instruction, selected_chapter_id)
     qa_chain = setup_qa_chain(llm, retriever)
     
-    print("\n✅ RAG System is Ready. Type 'exit' to quit at any question prompt.")
+    print("\nRAG System is Ready. Type 'exit' to quit at any question prompt.")
 
     asked_questions_history = set()
     max_retries_for_unique_question = 5
@@ -911,7 +875,7 @@ def main():
                         
                         if not is_correct: # For both partially_correct and wrong answers
                             if input("\nWould you like a hint? (yes/no): ").lower().strip() == 'yes':
-                                print(f"\n💡 Hint: {analysis['hint']}")
+                                print(f"\nHint: {analysis['hint']}")
                             
                             if input("\nWould you like to see the full answer? (yes/no): ").lower().strip() == 'yes':
                                 print(f"\nThe full correct answer is: {expected_answer}")
