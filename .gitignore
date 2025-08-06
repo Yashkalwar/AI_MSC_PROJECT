@@ -58,4 +58,3 @@ data/faiss_index/
 
 
 data/vectorstore/
-data/raw/*.pdf
