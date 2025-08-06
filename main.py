@@ -776,7 +776,7 @@ def main():
             if generated_question and expected_answer and generated_question != "Could not generate a question.":
                 print(f"\nHere's a question for you {display_context_name}:")
                 print(f"Question: {generated_question}")
-                print(f"Answer: {expected_answer}")
+                # print(f"Answer: {expected_answer}")
                 user_answer = input("Your answer (or 'exit'): ").strip()
 
                 if user_answer.lower() == 'exit':

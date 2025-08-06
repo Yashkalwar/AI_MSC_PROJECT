@@ -1,83 +1,79 @@
-# 📚 A-Level History Study Buddy
+# A-Level History Study Assistant
 
-Welcome to your personal AI-powered study assistant for A-Level History! This tool helps you study smarter by adapting to your learning pace and style. Whether you're cramming for exams or just want to understand historical events better, I'm here to help.
+This is a personal AI-powered study tool designed to help A-Level History students enhance their learning experience. The system adapts to your individual learning pace and style, making it an effective study companion for exam preparation and historical understanding.
 
-## ✨ What Makes This Special?
+## Key Features
 
-- **Adaptive Learning**: The system adjusts question difficulty based on your performance, just like a real tutor would
-- **Interactive Quizzes**: Test your knowledge with automatically generated questions
-- **Instant Feedback**: Get detailed explanations and feedback on your answers
-- **Chapter-Specific Practice**: Focus on specific historical periods or topics
-- **Progress Tracking**: Watch your knowledge grow over time
+- **Adaptive Learning**: The system intelligently adjusts question difficulty based on your performance, providing a personalized learning experience
+- **Interactive Quizzes**: Test your knowledge with dynamically generated questions
+- **Comprehensive Feedback**: Receive detailed explanations and insights for each answer
+- **Topic-Focused Practice**: Target specific historical periods or subjects for focused study
+- **Progress Monitoring**: Track your improvement and knowledge growth over time
 
-## 🚀 Quick Start Guide
+## Getting Started
 
 ### Prerequisites
-Before we begin, make sure you have:
-- Python 3.8 or higher
-- An OpenAI API key (get one at [OpenAI's website](https://platform.openai.com/))
-- Basic knowledge of command line/terminal
+Before getting started, ensure you have the following:
+- Python 3.8 or higher installed
+- A valid OpenAI API key (available at [OpenAI's website](https://platform.openai.com/))
+- Basic familiarity with command line/terminal operations
 
-### Step 1: Get the Code
-First, clone this repository to your computer:
+### Step 1: Clone the Repository
+To get started, clone this repository to your local machine:
 ```bash
 git clone https://github.com/Yashkalwar/AI_MSC_PROJECT.git
-cd AI_MSC_PROJECT
 ```
 
-### Step 2: Set Up Your Environment
+### Step 2: Configure Your Environment
 
-1. **Create a virtual environment** (keeps your project dependencies organized):
+1. **Set up a virtual environment** to manage dependencies:
    ```bash
-   # On Windows:
+   # Windows:
    python -m venv venv
    .\venv\Scripts\activate
    
-   # On macOS/Linux:
+   # macOS/Linux:
    python3 -m venv venv
    source venv/bin/activate
    ```
 
-2. **Install the required packages**:
+2. **Install required dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Set up your API key**:
-   - Create a new file called `.env` in the project folder
-   - Add your OpenAI API key like this:
+3. **Configure your API key**:
+   - Create a new `.env` file in the project directory
+   - Add your OpenAI API key in the following format:
      ```
      OPENAI_API_KEY=your-api-key-here
      ```
 
-### Step 3: Start Learning!
+### Step 3: Launch the Application
 
-#### Option 1: Command Line Interface (For Quick Use)
+#### Command Line Interface (Basic Usage)
 ```bash
 python main.py
 ```
 
-#### Option 2: Web Interface (More Interactive)
+#### Web Interface (Recommended)
 
-1. **Initialize the Database** (run once):
+1. **Initialize the Database** (one-time setup):
    ```bash
-   # In the project directory
    python create_sample_data.py
    ```
-   This will set up the initial database with sample data and you can edit it accordingly
+   This creates the initial database with sample content that you can modify as needed.
 
-2. **Start the Backend API** (in a terminal):
+2. **Start the Backend Server**:
    ```bash
-   # In the project directory
    uvicorn quiz_api:app --reload
    ```
-   This will start the FastAPI backend with auto-reload enabled
+   This launches the FastAPI backend with auto-reload functionality.
 
-2. **Start the Frontend** (in a new terminal):
+3. **Launch the Web Interface**:
    ```bash
-   # In the project directory
    streamlit run streamlit_frontend.py
    ```
-   This will automatically open your browser to `http://localhost:8501`
+   The application will open automatically in your default web browser at `http://localhost:8501`
 
-> **Note**: Make sure both the backend and frontend are running for full functionality. The frontend depends on the backend API to work properly.
+**Note**: For full functionality, ensure both the backend server and frontend interface are running simultaneously. The web interface requires the backend API to be active for proper operation.
