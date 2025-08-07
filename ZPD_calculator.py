@@ -59,7 +59,7 @@ class ZPDCalculator:
         # Ensure the result is within valid bounds
         return min(1.0, max(0.0, weighted_sum / sum(weights)))
 
-    def update_user_zpd(self, performance_score: float) -> float:
+    def update_user_zpd(self, performance_score: float):
         """
         Update the difficulty level based on how the student did.
         

@@ -14,7 +14,7 @@ This is a personal AI-powered study tool designed to help A-Level History studen
 
 ### Prerequisites
 Before getting started, ensure you have the following:
-- Python 3.8 or higher installed, but you mighth dependencies might 
+- Python 3.10 or higher installed, but you might have to check the dependencies since some are compatible with some versions of other libraries. It is recommended to check on CLI as here you will be able to see the actual ZPD update.
 - A valid OpenAI API key (available at [OpenAI's website](https://platform.openai.com/))
 - Basic familiarity with command line/terminal operations
 
@@ -99,6 +99,7 @@ AI_MSC_PROJECT/
 ├── requirements.txt      # Python dependencies
 ├── main.py               # Main entry point for CLI usage
 ├── streamlit_frontend.py # Streamlit web interface
+├── frontend_style.css    # Custom CSS styling for Streamlit frontend
 ├── quiz_api.py           # FastAPI backend API
 ├── create_sample_data.py # Script to initialize the database with sample data
 ├── student_db.py         # Student database operations
@@ -116,6 +117,7 @@ AI_MSC_PROJECT/
 
 - **main.py**: Command-line interface for running quizzes and interacting with the assistant.
 - **streamlit_frontend.py**: Provides a user-friendly web interface for students.
+- **frontend_style.css**: Custom CSS file for modern, visually enhanced Streamlit UI/UX.
 - **quiz_api.py**: Backend API using FastAPI to serve quiz data and logic.
 - **create_sample_data.py**: Script to populate the database with initial/sample data.
 - **student_db.py**: Handles database operations related to students.

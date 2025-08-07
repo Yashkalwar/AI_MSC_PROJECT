@@ -1,0 +1,65 @@
+/* Custom Streamlit Styling */
+
+body, .stApp {
+    background: linear-gradient(120deg, #f8fafc 0%, #e3e6f0 100%);
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+}
+
+/* Card-like container for main content */
+.stApp > div > div:nth-child(2) > div {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 6px 32px rgba(60,72,100,0.12);
+    padding: 2.5rem 2rem;
+    margin-top: 2rem;
+}
+
+/* Title and headers */
+h1, .stTitle, .stHeader, h2, h3 {
+    color: #23395d;
+    font-weight: 700;
+}
+
+/* Buttons */
+.stButton > button {
+    background: linear-gradient(90deg, #3a7bd5 0%, #00d2ff 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.7rem 1.5rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    transition: background 0.3s;
+}
+.stButton > button:hover {
+    background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
+    color: #fff;
+}
+
+/* Text input and textarea */
+.stTextInput > div > input, .stTextArea > div > textarea {
+    border-radius: 6px;
+    border: 1.5px solid #b3b8c5;
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
+    background: #f6f8fa;
+}
+
+/* Feedback and info boxes */
+.stAlert, .stInfo, .stSuccess, .stWarning, .stError {
+    border-radius: 8px;
+    font-size: 1.05rem;
+}
+
+/* Columns */
+.css-1kyxreq, .stColumns {
+    gap: 1.5rem !important;
+}
+
+/* Misc */
+hr {
+    border: none;
+    border-top: 2px solid #e3e6f0;
+    margin: 2rem 0;
+}
